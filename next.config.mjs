@@ -7,6 +7,10 @@ const nextConfig = {
     workerThreads: false,
     cpus: 1
   },
+  // Настройки для Vercel
+  output: 'standalone',
+  // Исключаем API-роуты из статической генерации
+  trailingSlash: false,
   // Настройки для изображений
   images: {
     formats: ['image/webp', 'image/avif'],
