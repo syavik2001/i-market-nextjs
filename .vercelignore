@@ -1,9 +1,8 @@
-# Исключаем API-роуты из статической генерации
-app/api/**/*.ts
-app/api/**/*.tsx
-app/api/**/*.js
-app/api/**/*.jsx
+# Исключаем только ненужные файлы
+node_modules/
+.env
+*.log
+.DS_Store
 
 # Исключаем файлы, которые не должны быть статическими
-.next/cache/**
-.next/server/app/api/** 
+.next/cache/** 
