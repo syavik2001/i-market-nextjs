@@ -7,6 +7,9 @@ import { CartItemDTO } from "@/shared/services/dto/cart.dto";
 import { OrderStatus } from "@prisma/client";
 import Stripe from "stripe";
 
+// Принудительно делаем роут динамическим
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest) {
 	console.log("🔥 Webhook triggered");
 	const signature = req.headers.get("stripe-signature");

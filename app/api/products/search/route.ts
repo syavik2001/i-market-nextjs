@@ -1,6 +1,9 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
+// Принудительно делаем роут динамическим
+export const dynamic = "force-dynamic";
+
 // Функция для нормализации текста для поиска
 function normalizeSearchText(text: string): string {
 	return text

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/shared/lib/stripe";
 
+// Принудительно делаем роут динамическим
+export const dynamic = "force-dynamic";
+
 const secretKey = process.env.STRIPE_SECRET_KEY;
 if (!secretKey) {
 	throw new Error("STRIPE_SECRET_KEY is not defined");

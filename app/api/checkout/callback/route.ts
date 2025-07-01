@@ -6,6 +6,9 @@
 //import { OrderStatus } from '@prisma/client';
 import { NextResponse } from "next/server";
 
+// Принудительно делаем роут динамическим
+export const dynamic = "force-dynamic";
+
 //export async function POST(req: NextRequest) {
 //  try {
 //    const body = (await req.json()) as PaymentCallbackData;

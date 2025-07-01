@@ -1,6 +1,9 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
+// Принудительно делаем роут динамическим
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
 	try {
 		const code = req.nextUrl.searchParams.get("code");
