@@ -55,58 +55,65 @@ export const ChooseProductForm: React.FC<Props> = ({ product, onClose, className
 	};
 
 	return (
-		<div className={cn(className, "flex flex-1")}>
-			<div className="flex items-center justify-center flex-1 relative w-full">
+		<div className={cn(className, "flex flex-col 1100:flex-row flex-1")}>
+			<div className="flex items-center justify-center relative w-full p-2 sm:p-3 1100:p-0 h-[30%] 1100:h-auto 1100:flex-1">
 				<img
 					src={product.imageUrl}
 					alt={product.name}
-					className="relative left-2 top-2 transition-all z-10 duration-300 w-[350px] h-[350px]"
+					className="relative 1100:left-2 1100:top-2 transition-all z-10 duration-300 w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] 1100:w-[350px] 1100:h-[350px]"
 				/>
 			</div>
 
-			<div className="w-[490px] bg-[#f7f6f5] p-7">
-				<Title text={product.name} size="md" className="font-extrabold mb-1" />
-
-				<p className="text-gray-400">
-					{product.ingredients.map((ingredient) => ingredient.name).join(", ")}
-				</p>
-
-				{/* Количество */}
-				<div className="mb-6 mt-5">
-					<h4 className="font-bold mb-3">Кількість</h4>
-					<CountButton value={quantity} onClick={handleQuantityChange} />
+			<div className="w-full 1100:w-[490px] bg-[#f7f6f5] p-4 1100:p-7 h-[70%] 1100:h-auto flex flex-col">
+				<div className="">
+					<Title
+						text={product.name}
+						size="md"
+						className="font-extrabold mb-1 text-lg 1100:text-xl"
+					/>
+					<p className="text-gray-400 text-sm 1100:text-base">
+						{product.ingredients.map((ingredient) => ingredient.name).join(", ")}
+					</p>
 				</div>
-
-				{/* Дополнительные ингредиенты (если есть) */}
 				{product.ingredients.length > 0 && (
-					<div className="bg-gray-50 p-5 rounded-md h-[420px] overflow-auto scrollbar mt-5">
-						<h4 className="font-bold mb-3">Додаткові інгредієнти</h4>
-						<div className="grid grid-cols-3 gap-3">
-							{product.ingredients.map((ingredient) => (
-								<IngredientItem
-									key={ingredient.id}
-									name={ingredient.name}
-									price={ingredient.price}
-									imageUrl={ingredient.imageUrl}
-									active={selectedIngredients.includes(ingredient.id)}
-									onClick={() => {
-										const newSelected = selectedIngredients.includes(ingredient.id)
-											? selectedIngredients.filter((id) => id !== ingredient.id)
-											: [...selectedIngredients, ingredient.id];
-										setSelectedIngredients(newSelected);
-									}}
-								/>
-							))}
+					<div className="flex-1 min-h-0">
+						<div className="bg-gray-50 p-3 1100:p-5 rounded-md h-full overflow-auto scrollbar mt-4 1100:mt-5">
+							<h4 className="font-bold mb-2 1100:mb-3 text-sm 1100:text-base">
+								Додаткові інгредієнти
+							</h4>
+							<div className="flex gap-2 sm:gap-3 flex-wrap 1100:grid 1100:grid-cols-3 1100:gap-3">
+								{product.ingredients.map((ingredient) => (
+									<IngredientItem
+										key={ingredient.id}
+										name={ingredient.name}
+										price={ingredient.price}
+										imageUrl={ingredient.imageUrl}
+										active={selectedIngredients.includes(ingredient.id)}
+										onClick={() => {
+											const newSelected = selectedIngredients.includes(ingredient.id)
+												? selectedIngredients.filter((id) => id !== ingredient.id)
+												: [...selectedIngredients, ingredient.id];
+											setSelectedIngredients(newSelected);
+										}}
+									/>
+								))}
+							</div>
 						</div>
 					</div>
 				)}
-
-				{/* Кнопка добавления */}
-				<Button
-					onClick={handleAddToCart}
-					className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
-					Додати до кошика за {totalPrice} грн
-				</Button>
+				<div className="mt-auto pt-4 1100:pt-6">
+					{/* Количество */}
+					<div className="mb-4 1100:mb-6">
+						<h4 className="font-bold mb-2 1100:mb-3 text-sm 1100:text-base">Кількість</h4>
+						<CountButton value={quantity} onClick={handleQuantityChange} />
+					</div>
+					{/* Кнопка добавления */}
+					<Button
+						onClick={handleAddToCart}
+						className="h-[50px] 1100:h-[55px] px-6 1100:px-10 text-base rounded-[18px] w-full">
+						Додати до кошика за {totalPrice} грн
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useClickAway, useDebounce } from "react-use";
 import { cn } from "@/shared/lib/utils";
 import { Api } from "@/shared/services/api-client";
@@ -77,7 +77,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 				className={cn("flex rounded-2xl w-full justify-between relative h-11 z-30", className)}>
 				<Search className="absolute top-1/2 translate-y-[-50%] left-3 h-5 text-gray-400" />
 				<input
-					className="rounded-2xl outline-none w-full bg-gray-100 pl-11 h-11"
+					className="rounded-2xl outline-none w-full bg-gray-100 pl-11 h-11 pr-10"
 					type="text"
 					placeholder="Знайти піцу..."
 					spellCheck="false"
@@ -85,6 +85,17 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
+
+				{/* Кнопка-крестик для очистки поля */}
+				{searchQuery && (
+					<button
+						type="button"
+						className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none group"
+						onClick={() => setSearchQuery("")}
+						aria-label="Очистити поле пошуку">
+						<X className="h-5 w-5 transition-transform duration-200 group-hover:rotate-90" />
+					</button>
+				)}
 
 				{focused && (products.length > 0 || loading || error) && (
 					<div

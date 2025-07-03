@@ -34,15 +34,19 @@ export const ProductCard: React.FC<Props> = ({
 	};
 
 	return (
-		<div className={cn(className, "flex flex-col h-[400px]")}>
+		<div className={cn(className, "flex flex-col h-[280px] sm:h-[400px]")}>
 			<div className="flex flex-col h-full cursor-pointer" onClick={handleClick}>
-				<div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
-					<img className="w-[215px] h-[215px]" src={imageUrl} alt={name} />
+				<div className="flex justify-center p-3 sm:p-6 bg-secondary rounded-lg h-[180px] sm:h-[260px]">
+					<img
+						className="w-[150px] h-[150px] sm:w-[200px] sm:h-[200px]"
+						src={imageUrl}
+						alt={name}
+					/>
 				</div>
 
-				<Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
+				<Title text={name} size="sm" className="mb-1 mt-2 sm:mt-3 font-bold" />
 
-				<p className="text-sm text-gray-400 flex-1">
+				<p className="text-xs sm:text-sm text-gray-400 flex-1">
 					{ingredients
 						.slice(0, 3)
 						.map((ingredient) => ingredient.name)
@@ -50,8 +54,8 @@ export const ProductCard: React.FC<Props> = ({
 					{ingredients.length > 3 && "..."}
 				</p>
 
-				<div className="flex justify-between items-center mt-4">
-					<span className="text-[20px]">
+				<div className="flex justify-between items-center mt-1 sm:mt-4">
+					<span className="text-base sm:text-[20px]">
 						від <b>{price} грн</b>
 					</span>
 

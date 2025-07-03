@@ -34,8 +34,8 @@ export default function ProfilePage() {
 		<div className="min-h-screen bg-gray-50">
 			<Header hasSearch={false} hasCart={false} />
 
-			<div className="container mx-auto max-w-2xl py-10">
-				<h1 className="text-3xl font-bold mb-8">Мій профіль</h1>
+			<div className="w-full max-w-full px-2 sm:px-4 md:px-0 md:container md:mx-auto md:max-w-2xl py-4 sm:py-8 md:py-10">
+				<h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8">Мій профіль</h1>
 				<ProfileForm data={userData} />
 			</div>
 		</div>

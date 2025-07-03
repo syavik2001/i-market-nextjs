@@ -74,14 +74,15 @@ export const Filters: React.FC<Props> = ({ className }) => {
 						onChange={(e) => filters.setPrices("priceTo", Number(e.target.value))}
 					/>
 				</div>
-
-				<RangeSlider
-					min={0}
-					max={1000}
-					step={10}
-					value={[filters.prices.priceFrom || 0, filters.prices.priceTo || 1000]}
-					onValueChange={updatePrices}
-				/>
+				<div className="max-w-[250px] w-full">
+					<RangeSlider
+						min={0}
+						max={1000}
+						step={10}
+						value={[filters.prices.priceFrom || 0, filters.prices.priceTo || 1000]}
+						onValueChange={updatePrices}
+					/>
+				</div>
 			</div>
 
 			<CheckboxFiltersGroup

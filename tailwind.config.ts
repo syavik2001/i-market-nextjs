@@ -17,6 +17,14 @@ const config = {
         "2xl": "1400px",
       },
     },
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+      '1100': '1100px',
+    },
     extend: {
       fontFamily: {
         nunito: ["var(--font-nunito)", "sans-serif"],

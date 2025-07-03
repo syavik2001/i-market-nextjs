@@ -10,9 +10,10 @@ interface Props {
 	filters: Filters & {
 		setSortBy: (value: string) => void;
 	};
+	isSheet?: boolean;
 }
 
-export const SortPopup: React.FC<Props> = ({ className, filters }) => {
+export const SortPopup: React.FC<Props> = ({ className, filters, isSheet }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const sortOptions = [
@@ -29,6 +30,24 @@ export const SortPopup: React.FC<Props> = ({ className, filters }) => {
 		filters.setSortBy(sortValue);
 		setOpen(false);
 	};
+
+	if (isSheet) {
+		return (
+			<ul className={cn("flex flex-col gap-2", className)}>
+				{sortOptions.map((option) => (
+					<li
+						key={option.value}
+						className={cn(
+							"hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md text-center text-lg",
+							filters.sortBy === option.value && "bg-secondary text-primary font-bold",
+						)}
+						onClick={() => handleSortChange(option.value)}>
+						{option.label}
+					</li>
+				))}
+			</ul>
+		);
+	}
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>

@@ -22,31 +22,40 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 	return (
 		<>
 			<header className={cn("border-b", className)}>
-				<Container className="flex items-center gap-8 py-8">
-					{/* Левая часть */}
-					<Link href="/">
-						<div className="flex items-center gap-4">
-							<Image src="/logo.png" alt="Logo" width={35} height={35} />
-							<div>
-								<h1 className="text-2xl uppercase font-black">NEXT PIZZA</h1>
-								<p className="text-sm text-gray-400 leading-3">найсмачнюча піца</p>
+				<Container className="flex flex-col md:flex-row items-center py-4 md:py-8">
+					<div className="flex flex-col sm:flex-row items-center gap-2 md:gap-4 w-full">
+						<Link href="/">
+							<div className="flex flex-row items-center gap-2 md:gap-4">
+								<Image src="/logo.png" alt="Logo" width={35} height={35} />
+								<div className="flex flex-col items-center md:items-start">
+									<h1 className="text-xl md:text-2xl uppercase font-black whitespace-nowrap">
+										NEXT PIZZA
+									</h1>
+									<p className="text-xs md:text-sm text-gray-400 leading-3">найсмачнюча піца</p>
+								</div>
 							</div>
+						</Link>
+						{hasSearch && (
+							<div className="hidden md:block md:w-[220px] lg:w-[300px] xl:w-[400px] md:ml-6">
+								<SearchInput />
+							</div>
+						)}
+						<div className="hidden sm:flex flex-row items-center gap-2 md:gap-3 ml-auto">
+							<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+							<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+							{hasCart && <CartButton />}
 						</div>
-					</Link>
-
+					</div>
+					<div className="flex flex-row items-center gap-2 md:gap-3 w-full justify-center sm:hidden mt-2">
+						<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+						<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+						{hasCart && <CartButton />}
+					</div>
 					{hasSearch && (
-						<div className="w-[400px]">
+						<div className="block md:hidden w-full max-w-full min-w-0 mx-auto mt-2">
 							<SearchInput />
 						</div>
 					)}
-
-					{/* Правая часть */}
-					<div className="flex items-center gap-3 ml-auto">
-						<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-						<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-
-						{hasCart && <CartButton />}
-					</div>
 				</Container>
 			</header>
 

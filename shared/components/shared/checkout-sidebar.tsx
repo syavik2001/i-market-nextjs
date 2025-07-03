@@ -23,19 +23,20 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
 	const totalPrice = totalAmount + DELIVERY_PRICE;
 
 	return (
-		<WhiteBlock className={cn("p-6 sticky top-4 self-start", className)}>
-			<div className="bg-white rounded-2xl p-8 h-fit">
-				<h2 className="text-2xl font-bold mb-6">Ваше замовлення</h2>
+		<WhiteBlock
+			className={cn("p-4 sm:p-6 md:p-6 md:sticky md:top-4 md:self-start w-full", className)}>
+			<div className="bg-white rounded-2xl p-4 sm:p-8 h-fit">
+				<h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Ваше замовлення</h2>
 				<div className="flex flex-col gap-1">
 					{loading ? (
-						<Skeleton className="h-11 w-48" />
+						<Skeleton className="h-11 w-32 sm:w-48" />
 					) : (
-						<span className="h-11 text-[34px] font-extrabold">{totalPrice} грн</span>
+						<span className="h-11 text-2xl sm:text-[34px] font-extrabold">{totalPrice} грн</span>
 					)}
 				</div>
 			</div>
 
-			<div className="space-y-4 mb-6">
+			<div className="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
 				{loading ? (
 					<>
 						<CheckoutSidebarSkeleton />
@@ -52,12 +53,12 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
 			</div>
 
 			<div className="border-t border-gray-200 pt-4">
-				<div className="flex justify-between items-center mb-6">
-					<span className="text-lg font-semibold">Разом до сплати</span>
+				<div className="flex justify-between items-center mb-4 sm:mb-6">
+					<span className="text-base sm:text-lg font-semibold">Разом до сплати</span>
 					{loading ? (
-						<Skeleton className="h-11 w-32" />
+						<Skeleton className="h-11 w-24 sm:w-32" />
 					) : (
-						<span className="h-11 text-[34px] font-extrabold">{totalPrice} грн</span>
+						<span className="h-11 text-2xl sm:text-[34px] font-extrabold">{totalPrice} грн</span>
 					)}
 				</div>
 

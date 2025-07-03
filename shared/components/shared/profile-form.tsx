@@ -57,18 +57,23 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 	};
 
 	return (
-		<Container className="my-10">
+		<Container className="my-4 sm:my-8 md:my-10">
 			<Title text={`Особисті дані | #${data.fullName}`} size="md" className="font-bold" />
 
 			<FormProvider {...form}>
-				<form className="flex flex-col gap-5 w-96 mt-10" onSubmit={form.handleSubmit(onSubmit)}>
+				<form
+					className="flex flex-col gap-4 sm:gap-5 w-full mt-6 sm:mt-10"
+					onSubmit={form.handleSubmit(onSubmit)}>
 					<FormInput name="email" label="E-Mail" required />
 					<FormInput name="fullName" label="Повне ім'я" required />
 
 					<FormInput type="password" name="password" label="Новий пароль" required />
 					<FormInput type="password" name="confirmPassword" label="Повторіть пароль" required />
 
-					<Button disabled={form.formState.isSubmitting} className="text-base mt-10" type="submit">
+					<Button
+						disabled={form.formState.isSubmitting}
+						className="text-base mt-6 sm:mt-10 w-full"
+						type="submit">
 						Зберегти
 					</Button>
 
@@ -76,7 +81,7 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 						onClick={onClickSignOut}
 						variant="secondary"
 						disabled={form.formState.isSubmitting}
-						className="text-base"
+						className="text-base w-full"
 						type="button">
 						Вийти
 					</Button>

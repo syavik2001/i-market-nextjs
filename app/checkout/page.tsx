@@ -84,14 +84,17 @@ export default function CheckoutPage() {
 		<div className="min-h-screen bg-gray-50">
 			<Header hasSearch={false} hasCart={false} />
 
-			<Container className="mt-10">
-				<Title text="Оформлення замовлення" className="font-extrabold mb-8 text-[36px]" />
+			<Container className="mt-4 sm:mt-6 md:mt-10">
+				<Title
+					text="Оформлення замовлення"
+					className="font-extrabold mb-4 sm:mb-8 text-2xl sm:text-[32px] md:text-[36px]"
+				/>
 
 				<FormProvider {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)}>
-						<div className="flex gap-10 items-start">
+						<div className="flex flex-col 1100:flex-row gap-4 1100:gap-10 items-start">
 							{/* Левая часть */}
-							<div className="flex flex-col gap-10 flex-1 mb-20">
+							<div className="flex flex-col gap-4 1100:gap-10 flex-1 mb-8 1100:mb-20 w-full">
 								<CheckoutCart
 									onClickCountButton={onClickCountButton}
 									removeCartItem={removeCartItem}
@@ -108,7 +111,7 @@ export default function CheckoutPage() {
 							</div>
 
 							{/* Правая часть */}
-							<div className="w-[450px]">
+							<div className="w-full 1100:w-[450px] 1100:sticky 1100:top-4 1100:self-start">
 								<CheckoutSidebar totalAmount={totalAmount} loading={loading || submitting} />
 							</div>
 						</div>

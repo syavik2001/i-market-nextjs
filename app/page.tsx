@@ -35,16 +35,16 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
 				<Stories />
 
 				<Container className="mt-10 pb-14">
-					<div className="flex gap-[80px]">
-						{/* Фильтрация */}
-						<div className="w-[250px]">
+					<div className="flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-[80px]">
+						{/* Фильтрация — только на lg+ */}
+						<div className="hidden lg:block w-[250px] flex-shrink-0">
 							<Suspense fallback={<div className="animate-pulse h-96 bg-gray-200 rounded"></div>}>
 								<FiltersWrapper />
 							</Suspense>
 						</div>
 
 						{/* Список товаров */}
-						<div className="flex-1">
+						<div className="flex-1 min-w-0">
 							<div className="flex flex-col gap-16">
 								{categories.map(
 									(category) =>

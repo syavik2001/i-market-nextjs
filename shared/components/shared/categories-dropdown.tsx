@@ -4,15 +4,18 @@ import { cn } from "@/shared/lib/utils";
 import { useCategoryStore } from "@/shared/store/category";
 import { Category } from "@prisma/client";
 import React from "react";
+import { ChevronDown } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/components/ui/popover";
 
 interface Props {
 	items: Category[];
 	className?: string;
 }
 
-export const Categories: React.FC<Props> = ({ items, className }) => {
+export const CategoriesDropdown: React.FC<Props> = ({ items, className }) => {
 	const categoryActiveId = useCategoryStore((state) => state.activeId);
 	const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
+	const [open, setOpen] = React.useState(false);
 
 	// Устанавливаем активную категорию при загрузке страницы на основе hash
 	React.useEffect(() => {
@@ -28,7 +31,7 @@ export const Categories: React.FC<Props> = ({ items, className }) => {
 	}, [items, setActiveCategoryId]);
 
 	const handleCategoryClick = (
-		e: React.MouseEvent<HTMLAnchorElement>,
+		e: React.MouseEvent<HTMLDivElement>,
 		categoryId: number,
 		categoryName: string,
 	) => {
@@ -36,6 +39,7 @@ export const Categories: React.FC<Props> = ({ items, className }) => {
 
 		// Устанавливаем активную категорию
 		setActiveCategoryId(categoryId);
+		setOpen(false);
 
 		// Кастомный скролл с учётом высоты TopBar
 		const targetElement = document.getElementById(categoryName);
@@ -49,25 +53,39 @@ export const Categories: React.FC<Props> = ({ items, className }) => {
 		}
 	};
 
+	const activeCategory = items.find((item) => item.id === categoryActiveId);
+
 	return (
-		<div
-			className={cn(
-				"inline-flex gap-1 bg-gray-50 p-1 rounded-2xl overflow-x-auto scrollbar-hide max-w-full pt-2 pb-2 min-h-[56px]",
-				className,
-			)}>
-			{items.map(({ name, id }, index) => (
-				<a
+		<Popover open={open} onOpenChange={setOpen}>
+			<PopoverTrigger asChild>
+				<div
 					className={cn(
-						"flex items-center font-bold h-11 rounded-2xl px-5 cursor-pointer transition-all duration-200",
-						categoryActiveId === id && "bg-white shadow-md shadow-gray-200 text-primary",
-						categoryActiveId !== id && "hover:bg-gray-100",
+						"inline-flex items-center gap-2 bg-gray-50 px-4 h-[52px] rounded-2xl cursor-pointer hover:bg-gray-100 transition-colors",
+						className,
+					)}>
+					<span className="font-bold">Категорії</span>
+					{activeCategory && (
+						<span className="text-primary font-bold">• {activeCategory.name}</span>
 					)}
-					href={`#${name}`}
-					onClick={(e) => handleCategoryClick(e, id, name)}
-					key={index}>
-					{name}
-				</a>
-			))}
-		</div>
+					<ChevronDown className="w-4 h-4" />
+				</div>
+			</PopoverTrigger>
+			<PopoverContent className="w-[200px] p-2">
+				<div className="flex flex-col gap-1">
+					{items.map(({ name, id }, index) => (
+						<div
+							key={index}
+							className={cn(
+								"flex items-center font-bold h-10 rounded-xl px-4 cursor-pointer transition-all duration-200",
+								categoryActiveId === id && "bg-yellow-50 text-primary",
+								categoryActiveId !== id && "hover:bg-gray-50",
+							)}
+							onClick={(e) => handleCategoryClick(e, id, name)}>
+							{name}
+						</div>
+					))}
+				</div>
+			</PopoverContent>
+		</Popover>
 	);
 };
