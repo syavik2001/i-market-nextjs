@@ -110,89 +110,96 @@ export const _ingredients = [
 ].map((obj, index) => ({ id: index + 1, ...obj }));
 
 export const products = [
+	// Сніданок (breakfast)
 	{
 		name: "Омлет з шинкою та грибами",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7970321044479C1D1085457A36EB.webp",
+		imageUrl: "/assets/images/breakfast/shinka-omlet.avif",
 		categoryId: 2,
 	},
 	{
 		name: "Омлет з пепероні",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE94ECF33B0C46BA410DEC1B1DD6F8.webp",
+		imageUrl: "/assets/images/breakfast/paper-omlet.avif",
 		categoryId: 2,
 	},
 	{
 		name: "Кава Латте",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp",
+		imageUrl: "/assets/images/breakfast/kava-latte.avif",
 		categoryId: 2,
 	},
+
+	// Закуски (zakuski)
 	{
 		name: "Денвіч шинка і сир",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.webp",
+		imageUrl: "/assets/images/zakuski/denvich-shinka.avif",
 		categoryId: 3,
 	},
 	{
 		name: "Курячі нагетси",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D618B5C7EC29350069AE9532C6E.webp",
+		imageUrl: "/assets/images/zakuski/chikken-nagets.avif",
 		categoryId: 3,
 	},
 	{
 		name: "Картопля з печі з соусом 🌱",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EED646A9CD324C962C6BEA78124F19.webp",
+		imageUrl: "/assets/images/zakuski/potato-with-souse.avif",
 		categoryId: 3,
 	},
 	{
 		name: "Додстер",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE796F96D11392A2F6DD73599921B9.webp",
+		imageUrl: "/assets/images/zakuski/dodster.avif",
 		categoryId: 3,
 	},
 	{
 		name: "Гострий Додстер 🌶️🌶️",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE796FD3B594068F7A752DF8161D04.webp",
+		imageUrl: "/assets/images/zakuski/dodster-spicy.avif",
 		categoryId: 3,
 	},
+
+	// Коктейлі (coctails)
 	{
 		name: "Банановий молочний коктейль",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EEE20B8772A72A9B60CFB20012C185.webp",
+		imageUrl: "/assets/images/coctails/banana-milk.avif",
 		categoryId: 4,
 	},
 	{
 		name: "Карамельне яблуко молочний коктейль",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE79702E2A22E693D96133906FB1B8.webp",
+		imageUrl: "/assets/images/coctails/apple-milk.avif",
 		categoryId: 4,
 	},
 	{
 		name: "Молочний коктейль з печивом Орео",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE796FA1F50F8F8111A399E4C1A1E3.webp",
+		imageUrl: "/assets/images/coctails/oreo-milk.avif",
 		categoryId: 4,
 	},
 	{
 		name: "Класичний молочний коктейль 👶",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE796F93FB126693F96CB1D3E403FB.webp",
+		imageUrl: "/assets/images/coctails/classik-milk.avif",
 		categoryId: 4,
 	},
+
+	// Напої (drinks)
 	{
 		name: "Ірландський Капучино",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D61999EBDA59C10E216430A6093.webp",
+		imageUrl: "/assets/images/drinks/irish-capuchino.avif",
 		categoryId: 5,
 	},
 	{
 		name: "Кава Карамельний капучино",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D61AED6B6D4BFDAD4E58D76CF56.webp",
+		imageUrl: "/assets/images/drinks/caramel-capuchino.avif",
 		categoryId: 5,
 	},
 	{
 		name: "Кава Кокосовий латте",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D61B19FA07090EE88B0ED347F42.webp",
+		imageUrl: "/assets/images/drinks/coconut-latte.avif",
 		categoryId: 5,
 	},
 	{
 		name: "Кава Американо",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D61B044583596548A59078BBD33.webp",
+		imageUrl: "/assets/images/drinks/americano.avif",
 		categoryId: 5,
 	},
 	{
 		name: "Кава Латте",
-		imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp",
+		imageUrl: "/assets/images/drinks/latte.avif",
 		categoryId: 5,
 	},
 ];
