@@ -20,92 +20,87 @@ export const _ingredients = [
 	{
 		name: "Сирний бортик",
 		price: 179,
-		imageUrl:
-			"https://cdn.dodostatic.net/static/Img/Ingredients/99f5cb91225b4875bd06a26d2e842106.png",
+		imageUrl: "/assets/images/ingridients/Сирний бортик.png",
 	},
 	{
 		name: "Вершкова моцарела",
 		price: 79,
-		imageUrl:
-			"https://cdn.dodostatic.net/static/Img/Ingredients/cdea869ef287426386ed634e6099a5ba.png",
+		imageUrl: "/assets/images/ingridients/Вершкова моцарела.png",
 	},
 	{
 		name: "Сир чеддер і пармезан",
 		price: 79,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA69C1FE796",
+		imageUrl: "/assets/images/ingridients/Сир чеддер і пармезан.png",
 	},
 	{
 		name: "Гострий перець халапеньйо",
 		price: 59,
-		imageUrl:
-			"https://cdn.dodostatic.net/static/Img/Ingredients/11ee95b6bfdf98fb88a113db92d7b3df.png",
+		imageUrl: "/assets/images/ingridients/Гострий перець халапеньйо.png",
 	},
 	{
 		name: "Ніжний курча",
 		price: 79,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA5B328D35A",
+		imageUrl: "/assets/images/ingridients/Ніжний курча.png",
 	},
 	{
 		name: "Печериці",
 		price: 59,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA67259A324",
+		imageUrl: "/assets/images/ingridients/Печериці.png",
 	},
 	{
 		name: "Шинка",
 		price: 79,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA61B9A8D61",
+		imageUrl: "/assets/images/ingridients/Шинка.png",
 	},
 	{
 		name: "Пікантна пепероні",
 		price: 79,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA6258199C3",
+		imageUrl: "/assets/images/ingridients/Пікантна пепероні.png",
 	},
 	{
 		name: "Гостра чорізо",
 		price: 79,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA62D5D6027",
+		imageUrl: "/assets/images/ingridients/Гостра чорізо.png",
 	},
 	{
 		name: "Мариновані огірки",
 		price: 59,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A21DA51A81211E9EA89958D782B",
+		imageUrl: "/assets/images/ingridients/Мариновані огірки.png",
 	},
 	{
 		name: "Свіжі томати",
 		price: 59,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA7AC1A1D67",
+		imageUrl: "/assets/images/ingridients/Свіжі томати.png",
 	},
 	{
 		name: "Червона цибуля",
 		price: 59,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA60AE6464C",
+		imageUrl: "/assets/images/ingridients/Червона цибуля.png",
 	},
 	{
 		name: "Соковиті ананаси",
 		price: 59,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A21DA51A81211E9AFA6795BA2A0",
+		imageUrl: "/assets/images/ingridients/Соковиті ананаси.png",
 	},
 	{
 		name: "Італійські трави",
 		price: 39,
-		imageUrl:
-			"https://cdn.dodostatic.net/static/Img/Ingredients/370dac9ed21e4bffaf9bc2618d258734.png",
+		imageUrl: "/assets/images/ingridients/Італійські трави.png",
 	},
 	{
 		name: "Солодкий перець",
 		price: 59,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA63F774C1B",
+		imageUrl: "/assets/images/ingridients/Солодкий перець.png",
 	},
 	{
 		name: "Кубики бринзи",
 		price: 79,
-		imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA6B0FFC349",
+		imageUrl: "/assets/images/ingridients/Кубики бринзи.png",
 	},
 	{
 		name: "Мітболи",
 		price: 79,
-		imageUrl:
-			"https://cdn.dodostatic.net/static/Img/Ingredients/b2f3a5d5afe44516a93cfc0d2ee60088.png",
+		imageUrl: "/assets/images/ingridients/Мітболи.png",
 	},
 ].map((obj, index) => ({ id: index + 1, ...obj }));
 
