@@ -38,8 +38,9 @@ export const ChooseProductModal: React.FC<Props> = ({
 	return (
 		<Dialog open={open} onOpenChange={handleClose}>
 			<DialogContent
+				style={{ height: "40vh", minHeight: 180, maxHeight: "90vh" }}
 				className={cn(
-					"p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden",
+					"p-0 w-full max-w-[95vw] sm:w-[600px] md:w-[800px] lg:w-[1060px] overflow-y-auto bg-white",
 					className,
 				)}
 				onOpenAutoFocus={(e) => e.preventDefault()}>

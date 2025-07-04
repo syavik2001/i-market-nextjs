@@ -78,11 +78,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 		<div className={cn(className, "flex flex-col 1100:flex-row flex-1")}>
 			<PizzaImage imageUrl={imageUrl} size={size} className="h-[30%] 1100:h-auto 1100:flex-1" />
 
-			<div className="w-full 1100:w-[490px] bg-[#f7f6f5] p-4 1100:p-7 h-[70%] 1100:h-auto flex flex-col">
+			<div className="w-full 1100:w-[490px] bg-[#f7f6f5] p-2 1100:p-7 h-[70%] 1100:h-auto flex flex-col">
 				<div className="">
 					<Title text={name} size="md" className="font-extrabold mb-1 text-lg 1100:text-xl" />
 					<p className="text-gray-400 text-sm 1100:text-base">{textDetaills}</p>
-					<div className="flex flex-col gap-3 1100:gap-4 mt-4 1100:mt-5">
+					<div className="flex flex-col gap-3 1100:gap-4 mt-2 1100:mt-5">
 						<GroupVariants
 							items={availableSizes}
 							value={String(size)}
@@ -96,7 +96,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 					</div>
 				</div>
 				<div className="flex-1 min-h-0">
-					<div className="bg-gray-50 p-3 1100:p-5 rounded-md h-full overflow-auto scrollbar mt-4 1100:mt-5">
+					<div className="bg-gray-50 p-3 1100:p-5 rounded-md h-full max-h-[34vh] sm:max-h-none overflow-auto scrollbar mt-2 1100:mt-5">
 						<div className="flex gap-2 sm:gap-3 flex-wrap 1100:grid 1100:grid-cols-3 1100:gap-3">
 							{ingredients.map((ingredient) => (
 								<IngredientItem
@@ -106,14 +106,16 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 									imageUrl={ingredient.imageUrl}
 									onClick={() => addIngredient(ingredient.id)}
 									active={selectedIngredients.has(ingredient.id)}
+									className="w-24 h-24 text-[10px] md:w-28 md:h-32 md:text-xs 1100:w-32 1100:h-36 1100:text-sm"
+									imageClassName="w-16 h-16 md:w-20 md:h-20 1100:w-20 1100:h-20 object-contain mx-auto"
 								/>
 							))}
 						</div>
 					</div>
 				</div>
-				<div className="mt-auto pt-4 1100:pt-6">
-					<div className="mb-4 1100:mb-6">
-						<h4 className="font-bold mb-2 1100:mb-3 text-sm 1100:text-base">Кількість</h4>
+				<div className="mt-auto pt-2 1100:pt-6">
+					<div className="mb-2 1100:mb-6">
+						<h4 className="font-bold mb-1 1100:mb-3 text-sm 1100:text-base">Кількість</h4>
 						<CountButton value={quantity} onClick={handleQuantityChange} />
 					</div>
 					<Button

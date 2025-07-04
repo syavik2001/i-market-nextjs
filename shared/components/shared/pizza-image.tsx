@@ -18,11 +18,11 @@ export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
 				src={imageUrl}
 				alt="Logo"
 				className={cn("relative 1100:left-2 1100:top-2 transition-all z-10 duration-300", {
-					"w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] 1100:w-[300px] 1100:h-[300px]":
+					"w-[100px] h-[100px] 480:w-[140px] 480:h-[140px] 639:w-[160px] 639:h-[160px] sm:w-[180px] sm:h-[180px] 1100:w-[300px] 1100:h-[300px]":
 						size === 20,
-					"w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] 1100:w-[400px] 1100:h-[400px]":
+					"w-[120px] h-[120px] 480:w-[160px] 480:h-[160px] 639:w-[200px] 639:h-[200px] sm:w-[220px] sm:h-[220px] 1100:w-[400px] 1100:h-[400px]":
 						size === 30,
-					"w-[240px] h-[240px] sm:w-[260px] sm:h-[260px] 1100:w-[500px] 1100:h-[500px]":
+					"w-[140px] h-[140px] 480:w-[180px] 480:h-[180px] 639:w-[220px] 639:h-[220px] sm:w-[240px] sm:h-[240px] 1100:w-[500px] 1100:h-[500px]":
 						size === 40,
 				})}
 			/>

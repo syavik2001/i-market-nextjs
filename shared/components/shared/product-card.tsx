@@ -34,7 +34,7 @@ export const ProductCard: React.FC<Props> = ({
 	};
 
 	return (
-		<div className={cn(className, "flex flex-col h-[280px] sm:h-[400px]")}>
+		<div className={cn(className, "flex flex-col h-[280px] sm:h-[400px] w-[220px] sm:w-auto")}>
 			<div className="flex flex-col h-full cursor-pointer" onClick={handleClick}>
 				<div className="flex justify-center p-3 sm:p-6 bg-secondary rounded-lg h-[180px] sm:h-[260px]">
 					<img

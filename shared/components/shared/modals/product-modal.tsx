@@ -19,7 +19,7 @@ export const ProductModal: React.FC<Props> = ({ className }) => {
 		<Dialog open={isOpen} onOpenChange={closeModal}>
 			<DialogContent
 				className={cn(
-					"p-0 w-full max-w-[95vw] sm:max-w-[90vw] md:max-w-[80vw] 1100:max-w-[1060px] 1100:w-[1060px] min-h-[95vh] sm:min-h-[90vh] md:min-h-[80vh] 1100:min-h-[500px] bg-white overflow-hidden",
+					"p-0 w-full max-w-[99vw] 480:max-w-[98vw] 639:max-w-[95vw] sm:max-w-[90vw] md:max-w-[80vw] 1100:max-w-[1060px] 1100:w-[1060px] h-[90vh] 639:h-[90vh] 1100:min-h-[500px] bg-white overflow-hidden",
 					className,
 				)}
 				onOpenAutoFocus={(e) => e.preventDefault()}>
