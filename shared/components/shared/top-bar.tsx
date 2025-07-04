@@ -23,7 +23,11 @@ export const TopBar: React.FC<Props> = ({ categories, className }) => {
 	const [openSort, setOpenSort] = useState(false);
 
 	return (
-		<div className={cn("sticky top-0 bg-white py-5 shadow-lg shadow-black/5 z-10", className)}>
+		<div
+			className={cn(
+				"sticky top-0 bg-white py-5 max-sm:py-2 shadow-lg shadow-black/5 z-10",
+				className,
+			)}>
 			<Container>
 				<div className="flex items-center justify-center lg:justify-between overflow-x-auto gap-2 sm:gap-4 scrollbar-hide">
 					{/* Категории: выпадающее меню на <640px, обычные на >=640px */}
@@ -39,7 +43,7 @@ export const TopBar: React.FC<Props> = ({ categories, className }) => {
 					</div>
 				</div>
 				{/* Сортировка и фильтры для <lg */}
-				<div className="flex lg:hidden items-center gap-2 mt-4 justify-center">
+				<div className="flex lg:hidden items-center gap-2 mt-4 max-sm:mt-1 justify-center">
 					<Sheet open={openSort} onOpenChange={setOpenSort}>
 						<SheetTrigger asChild>
 							<Button variant="outline">Сортування</Button>

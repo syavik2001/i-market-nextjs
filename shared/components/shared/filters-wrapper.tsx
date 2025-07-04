@@ -16,7 +16,9 @@ export const FiltersWrapper: React.FC<Props> = ({ className, open, setOpen }) =>
 		<div className={className}>
 			{/* Мобильная версия: только SheetContent, без кнопки */}
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent side="left" className="max-w-[90vw] w-[340px] p-4 bg-yellow-50/95">
+				<SheetContent
+					side="left"
+					className="max-w-[90vw] w-[340px] p-4 bg-yellow-50/95 max-h-[100vh] h-full overflow-y-auto">
 					<FiltersProvider>
 						<Filters />
 					</FiltersProvider>

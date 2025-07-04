@@ -106,8 +106,8 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 									imageUrl={ingredient.imageUrl}
 									onClick={() => addIngredient(ingredient.id)}
 									active={selectedIngredients.has(ingredient.id)}
-									className="w-24 h-32 text-[10px] md:w-28 md:h-32 md:text-xs 1100:w-32 1100:h-36 1100:text-sm"
-									imageClassName="w-16 h-16 md:w-20 md:h-20 1100:w-20 1100:h-20 object-contain mx-auto"
+									className="w-16 h-20 text-[8px] md:w-28 md:h-32 md:text-xs 1100:w-32 1100:h-36 1100:text-sm"
+									imageClassName="w-9 h-9 md:w-20 md:h-20 1100:w-20 1100:h-20 object-contain mx-auto"
 								/>
 							))}
 						</div>
