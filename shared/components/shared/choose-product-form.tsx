@@ -56,11 +56,11 @@ export const ChooseProductForm: React.FC<Props> = ({ product, onClose, className
 
 	return (
 		<div className={cn(className, "flex flex-col 1100:flex-row flex-1")}>
-			<div className="flex items-center justify-center relative w-full p-2 sm:p-3 1100:p-0 h-[30%] 1100:h-auto 1100:flex-1">
+			<div className="flex items-center justify-center relative w-full p-2 sm:p-3 1100:p-0 1100:h-auto 1100:flex-1">
 				<img
 					src={product.imageUrl}
 					alt={product.name}
-					className="relative 1100:left-2 1100:top-2 transition-all z-10 duration-300 w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] 1100:w-[350px] 1100:h-[350px]"
+					className="relative 1100:left-2 1100:top-2 transition-all z-10 duration-300 w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] 1100:w-[350px] 1100:h-[350px] object-contain"
 				/>
 			</div>
 
