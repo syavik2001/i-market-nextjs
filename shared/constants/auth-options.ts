@@ -8,6 +8,7 @@ import { compare, hashSync } from "bcrypt";
 import { UserRole } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
+	debug: process.env.NODE_ENV === "development",
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID || "",

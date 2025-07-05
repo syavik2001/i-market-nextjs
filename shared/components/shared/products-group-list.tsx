@@ -44,7 +44,7 @@ export const ProductsGroupList: React.FC<Props> = ({
 			<Title text={title} size="lg" className="font-extrabold mb-5" />
 			<div
 				className={cn(
-					"grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-8 lg:gap-10 xl:gap-[50px] justify-items-center sm:justify-items-stretch",
+					"grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-8 lg:gap-10 xl:gap-[50px] justify-items-center sm:justify-items-stretch",
 					listClassName,
 				)}>
 				{items.map((product, i) => (
