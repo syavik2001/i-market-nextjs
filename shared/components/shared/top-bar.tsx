@@ -12,6 +12,8 @@ import { Sheet, SheetTrigger } from "@/shared/components/ui/sheet";
 import { FiltersWrapper } from "./filters-wrapper";
 import { SortWrapper } from "./sort-wrapper";
 
+import { useLocaleStore } from "@/shared/store";
+
 interface Props {
 	categories: Category[];
 	className?: string;
@@ -19,6 +21,7 @@ interface Props {
 
 export const TopBar: React.FC<Props> = ({ categories, className }) => {
 	const filters = useFiltersContext();
+	const { t } = useLocaleStore();
 	const [openFilters, setOpenFilters] = useState(false);
 	const [openSort, setOpenSort] = useState(false);
 
@@ -46,12 +49,12 @@ export const TopBar: React.FC<Props> = ({ categories, className }) => {
 				<div className="flex lg:hidden items-center gap-2 mt-4 max-sm:mt-1 justify-center">
 					<Sheet open={openSort} onOpenChange={setOpenSort}>
 						<SheetTrigger asChild>
-							<Button variant="outline">Сортування</Button>
+							<Button variant="outline">{t.sort.title}</Button>
 						</SheetTrigger>
 					</Sheet>
 					<Sheet open={openFilters} onOpenChange={setOpenFilters}>
 						<SheetTrigger asChild>
-							<Button variant="outline">Фільтри</Button>
+							<Button variant="outline">{t.filters.title}</Button>
 						</SheetTrigger>
 					</Sheet>
 				</div>

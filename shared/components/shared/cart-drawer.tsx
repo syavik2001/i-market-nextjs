@@ -22,8 +22,12 @@ import { Title } from "./title";
 import { cn } from "@/shared/lib/utils";
 import { useCart } from "@/shared/hooks/use-cart";
 
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
+
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+	const { locale, t } = useLocaleStore();
 	const [redirecting, setRedirecting] = React.useState(false);
 
 	const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
@@ -40,7 +44,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 					{totalAmount > 0 && (
 						<SheetHeader className="px-4 sm:px-6">
 							<SheetTitle className="text-lg sm:text-xl">
-								У кошику <span className="font-bold">{items.length} товарів</span>
+								{t.cart.title} <span className="font-bold">{items.length} {t.cart.itemsCount}</span>
 							</SheetTitle>
 						</SheetHeader>
 					)}
@@ -56,17 +60,17 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 							/>
 							<Title
 								size="sm"
-								text="Кошик порожній"
+								text={t.common.emptyCartTitle}
 								className="text-center font-bold my-2 text-base sm:text-lg"
 							/>
 							<p className="text-center text-neutral-500 mb-5 text-sm sm:text-base px-4">
-								Додайте хоча б одну піцу, щоб зробити замовлення
+								{t.common.emptyCartText}
 							</p>
 
 							<SheetClose>
 								<Button className="w-full sm:w-56 h-12 text-base" size="lg">
 									<ArrowLeft className="w-5 mr-2" />
-									Повернутися назад
+									{t.common.backToHome}
 								</Button>
 							</SheetClose>
 						</div>
@@ -84,9 +88,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 												item.ingredients,
 												item.pizzaType as PizzaType,
 												item.pizzaSize as PizzaSize,
+												locale,
 											)}
 											disabled={item.disabled}
-											name={item.name}
+											name={getLocalizedName(item.name, item.nameEn, locale)}
 											price={item.price}
 											quantity={item.quantity}
 											onClickCountButton={(type) =>
@@ -102,11 +107,11 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 								<div className="w-full">
 									<div className="flex mb-3 sm:mb-4">
 										<span className="flex flex-1 text-base sm:text-lg text-neutral-500">
-											Разом
+											{t.cart.total}
 											<div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
 										</span>
 
-										<span className="font-bold text-base sm:text-lg">{totalAmount} грн</span>
+										<span className="font-bold text-base sm:text-lg">{totalAmount} {t.common.currency}</span>
 									</div>
 
 									<Link href="/checkout">
@@ -115,7 +120,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 											loading={redirecting}
 											type="submit"
 											className="w-full h-12 sm:h-14 text-base">
-											Оформити замовлення
+											{t.cart.checkout}
 											<ArrowRight className="w-5 ml-2" />
 										</Button>
 									</Link>

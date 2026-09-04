@@ -1,6 +1,7 @@
 import { cn } from "@/shared/lib/utils";
 import { CircleCheck } from "lucide-react";
 import React from "react";
+import { useLocaleStore } from "@/shared/store";
 
 interface Props {
 	imageUrl: string;
@@ -21,6 +22,8 @@ export const IngredientItem: React.FC<Props> = ({
 	imageUrl,
 	onClick,
 }) => {
+	const { t } = useLocaleStore();
+
 	return (
 		<div
 			className={cn(
@@ -38,7 +41,7 @@ export const IngredientItem: React.FC<Props> = ({
 				alt={name}
 			/>
 			<span className="leading-tight">{name}</span>
-			<span className="font-bold">{price} грн</span>
+			<span className="font-bold">{price} {t.common.currency}</span>
 		</div>
 	);
 };

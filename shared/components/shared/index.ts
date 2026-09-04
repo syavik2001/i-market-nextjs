@@ -40,5 +40,7 @@ export { PizzaImage } from "./pizza-image";
 export { GroupVariants } from "./group-variants";
 export { ErrorText } from "./error-text";
 export { RequiredSymbol } from "./required-symbol";
+export { LanguagePicker } from "./language-picker";
+export { HomeTitle } from "./home-title";
 export * from "./checkout";
 export * from "./email-temapltes";

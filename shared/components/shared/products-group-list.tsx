@@ -8,8 +8,12 @@ import { useIntersection } from "react-use";
 import { useCategoryStore } from "@/shared/store/category";
 //import { CategoryProducts } from '@/@types/prisma';
 import { ProductWithRelations } from "@/@types/prisma";
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
+
 interface Props {
 	title: string;
+	nameEn?: string | null;
 	items: ProductWithRelations[];
 	className?: string;
 	listClassName?: string;
@@ -18,12 +22,14 @@ interface Props {
 
 export const ProductsGroupList: React.FC<Props> = ({
 	title,
+	nameEn,
 	items,
 	listClassName,
 	categoryId,
 	className,
 }) => {
 	const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
+	const { locale } = useLocaleStore();
 	const intersectionRef = React.useRef(null);
 	const intersection = useIntersection(intersectionRef, {
 		threshold: 0.3,
@@ -36,12 +42,14 @@ export const ProductsGroupList: React.FC<Props> = ({
 		}
 	}, [categoryId, intersection?.isIntersecting, setActiveCategoryId]);
 
+	const displayName = getLocalizedName(title, nameEn, locale);
+
 	return (
 		<div
 			className={cn("scroll-mt-[120px] lg:scroll-mt-32", className)}
 			id={title}
 			ref={intersectionRef}>
-			<Title text={title} size="lg" className="font-extrabold mb-5" />
+			<Title text={displayName} size="lg" className="font-extrabold mb-5" />
 			<div
 				className={cn(
 					"grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-8 lg:gap-10 xl:gap-[50px] justify-items-center sm:justify-items-stretch",

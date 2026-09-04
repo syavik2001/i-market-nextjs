@@ -5,6 +5,8 @@ import { getCartItemDetails } from "@/shared/lib";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { CartStateItem } from "@/shared/lib/get-cart-details";
 import { CheckoutItemSkeleton } from "../checkout-item-skeleton";
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
 
 interface Props {
 	items: CartStateItem[];
@@ -21,8 +23,10 @@ export const CheckoutCart: React.FC<Props> = ({
 	loading,
 	className,
 }) => {
+	const { locale, t } = useLocaleStore();
+
 	return (
-		<WhiteBlock title="1. Кошик" className={className}>
+		<WhiteBlock title={t.cart.cartSectionTitle} className={className}>
 			<div className="flex flex-col gap-5">
 				{loading
 					? [...Array(2)].map((_, index) => <CheckoutItemSkeleton key={index} />)
@@ -35,8 +39,9 @@ export const CheckoutCart: React.FC<Props> = ({
 									item.ingredients,
 									item.pizzaType as PizzaType,
 									item.pizzaSize as PizzaSize,
+									locale,
 								)}
-								name={item.name}
+								name={getLocalizedName(item.name, item.nameEn, locale)}
 								price={item.price}
 								quantity={item.quantity}
 								disabled={item.disabled}

@@ -8,6 +8,9 @@ import { CheckboxFiltersGroup } from "./checkbox-filters-group";
 import { useIngredients } from "@/shared/hooks";
 import { useFiltersContext } from "@/shared/hooks/use-filters-context";
 
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
+
 interface Props {
 	className?: string;
 }
@@ -15,8 +18,12 @@ interface Props {
 export const Filters: React.FC<Props> = ({ className }) => {
 	const filters = useFiltersContext();
 	const { ingredients, loading } = useIngredients();
+	const { locale, t } = useLocaleStore();
 
-	const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }));
+	const items = ingredients.map((item) => ({
+		value: String(item.id),
+		text: getLocalizedName(item.name, item.nameEn, locale),
+	}));
 
 	const updatePrices = (prices: number[]) => {
 		filters.setPrices("priceFrom", prices[0]);
@@ -25,37 +32,37 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Title text="Фільтрація" size="sm" className="mb-5 font-bold" />
+			<Title text={t.filters.title} size="sm" className="mb-5 font-bold" />
 
 			{/* Верхние чекбоксы */}
 			<CheckboxFiltersGroup
-				title="Тип тіста"
+				title={t.filters.doughTypes}
 				name="pizzaTypes"
 				className="mb-5"
 				onClickCheckbox={filters.setPizzaTypes}
 				selected={filters.pizzaTypes}
 				items={[
-					{ text: "Тонке", value: "1" },
-					{ text: "Традиційне", value: "2" },
+					{ text: t.filters.crustThin, value: "1" },
+					{ text: t.filters.crustTraditional, value: "2" },
 				]}
 			/>
 
 			<CheckboxFiltersGroup
-				title="Розміри"
+				title={t.filters.sizes}
 				name="sizes"
 				className="mb-5"
 				onClickCheckbox={filters.setSizes}
 				selected={filters.sizes}
 				items={[
-					{ text: `20 см`, value: "20" },
-					{ text: `30 см`, value: "30" },
-					{ text: `40 см`, value: "40" },
+					{ text: t.filters.sizeSmall, value: "20" },
+					{ text: t.filters.sizeMedium, value: "30" },
+					{ text: t.filters.sizeLarge, value: "40" },
 				]}
 			/>
 
 			{/* Фильтр цен */}
 			<div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
-				<p className="font-bold mb-3">Ціна від і до:</p>
+				<p className="font-bold mb-3">{t.filters.priceRange}</p>
 				<div className="flex gap-3 mb-5">
 					<Input
 						type="number"
@@ -86,7 +93,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 			</div>
 
 			<CheckboxFiltersGroup
-				title="Інгредієнти"
+				title={t.filters.ingredients}
 				name="ingredients"
 				className="mt-5"
 				limit={6}

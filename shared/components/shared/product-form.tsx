@@ -7,6 +7,9 @@ import { ChoosePizzaForm } from "./choose-pizza-form";
 import { ChooseProductForm } from "./choose-product-form";
 import { useCartStore } from "@/shared/store";
 
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
+
 interface Props {
 	product: ProductWithRelations;
 	onSubmit?: VoidFunction;
@@ -14,6 +17,7 @@ interface Props {
 
 export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) => {
 	const [addCartItem, loading] = useCartStore((state) => [state.addCartItem, state.loading]);
+	const { locale, t } = useLocaleStore();
 
 	const firstItem = product.items[0];
 	const isPizzaForm = Boolean(firstItem.pizzaType);
@@ -28,11 +32,12 @@ export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) =
 				quantity,
 			});
 
-			toast.success(product.name + " додано до кошика");
+			const productName = getLocalizedName(product.name, product.nameEn, locale);
+			toast.success(`${productName} ${t.cart.addedToCart}`);
 
 			_onSubmit?.();
 		} catch (err) {
-			toast.error("Не вдалося додати товар до кошика");
+			toast.error(t.cart.failedAddToCart);
 			console.error(err);
 		}
 	};

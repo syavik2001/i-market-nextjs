@@ -8,11 +8,15 @@ import { Api } from "@/shared/services/api-client";
 import { Product } from "@prisma/client";
 import { useProductModalStore } from "@/shared/store/product-modal";
 
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
+
 interface Props {
 	className?: string;
 }
 
 export const SearchInput: React.FC<Props> = ({ className }) => {
+	const { locale, t } = useLocaleStore();
 	const [searchQuery, setSearchQuery] = React.useState("");
 	const [focused, setFocused] = React.useState(false);
 	const [products, setProducts] = React.useState<Product[]>([]);
@@ -43,7 +47,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 				setProducts(response);
 			} catch (error) {
 				console.error("Search error:", error);
-				setError("Помилка пошуку");
+				setError(locale === "en" ? "Search error" : "Помилка пошуку");
 				setProducts([]);
 			} finally {
 				setLoading(false);
@@ -79,7 +83,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 				<input
 					className="rounded-2xl outline-none w-full bg-gray-100 pl-11 h-11 pr-10"
 					type="text"
-					placeholder="Знайти піцу..."
+					placeholder={t.header.searchPlaceholder}
 					spellCheck="false"
 					onFocus={() => setFocused(true)}
 					value={searchQuery}
@@ -92,7 +96,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 						type="button"
 						className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 focus:outline-none group"
 						onClick={() => setSearchQuery("")}
-						aria-label="Очистити поле пошуку">
+						aria-label="Clear search">
 						<X className="h-5 w-5 transition-transform duration-200 group-hover:rotate-90" />
 					</button>
 				)}
@@ -102,26 +106,31 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 						className={cn(
 							"absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 z-30",
 						)}>
-						{loading && <div className="px-3 py-2 text-gray-500">Пошук...</div>}
+						{loading && <div className="px-3 py-2 text-gray-500">{t.common.loading}</div>}
 
 						{error && <div className="px-3 py-2 text-red-500">{error}</div>}
 
 						{products.length > 0 && !loading && !error && (
 							<>
-								{products.map((product) => (
-									<div
-										onClick={() => onClickItem(product)}
-										key={product.id}
-										className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10 cursor-pointer">
-										<img className="rounded-sm h-8 w-8" src={product.imageUrl} alt={product.name} />
-										<span>{product.name}</span>
-									</div>
-								))}
+								{products.map((product) => {
+									const displayName = getLocalizedName(product.name, product.nameEn, locale);
+									return (
+										<div
+											onClick={() => onClickItem(product)}
+											key={product.id}
+											className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10 cursor-pointer">
+											<img className="rounded-sm h-8 w-8" src={product.imageUrl} alt={displayName} />
+											<span>{displayName}</span>
+										</div>
+									);
+								})}
 							</>
 						)}
 
 						{products.length === 0 && !loading && !error && searchQuery.trim() && (
-							<div className="px-3 py-2 text-gray-500">Нічого не знайдено</div>
+							<div className="px-3 py-2 text-gray-500">
+								{locale === "en" ? "Nothing found" : "Нічого не знайдено"}
+							</div>
 						)}
 					</div>
 				)}

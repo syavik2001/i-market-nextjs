@@ -13,11 +13,14 @@ import { FormInput } from "./form";
 import { Button } from "../ui";
 import { updateUserInfo } from "@/app/actions";
 
+import { useLocaleStore } from "@/shared/store";
+
 interface Props {
 	data: User;
 }
 
 export const ProfileForm: React.FC<Props> = ({ data }) => {
+	const { t, locale } = useLocaleStore();
 	const form = useForm({
 		resolver: zodResolver(formRegisterSchema),
 		defaultValues: {
@@ -40,11 +43,11 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 			form.setValue("password", "");
 			form.setValue("confirmPassword", "");
 
-			toast.success("Дані оновлено 📝", {
+			toast.success(locale === "en" ? "Data updated 📝" : "Дані оновлено 📝", {
 				icon: "✅",
 			});
 		} catch (error) {
-			return toast.error("Помилка при оновленні даних", {
+			return toast.error(locale === "en" ? "Error updating data" : "Помилка при оновленні даних", {
 				icon: "❌",
 			});
 		}
@@ -58,23 +61,23 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 
 	return (
 		<Container className="my-4 sm:my-8 md:my-10">
-			<Title text={`Особисті дані | #${data.fullName}`} size="md" className="font-bold" />
+			<Title text={`${t.profile.title} | #${data.fullName}`} size="md" className="font-bold" />
 
 			<FormProvider {...form}>
 				<form
 					className="flex flex-col gap-4 sm:gap-5 w-full mt-6 sm:mt-10"
 					onSubmit={form.handleSubmit(onSubmit)}>
-					<FormInput name="email" label="E-Mail" required />
-					<FormInput name="fullName" label="Повне ім'я" required />
+					<FormInput name="email" label={t.profile.email} required />
+					<FormInput name="fullName" label={t.profile.fullName} required />
 
-					<FormInput type="password" name="password" label="Новий пароль" required />
-					<FormInput type="password" name="confirmPassword" label="Повторіть пароль" required />
+					<FormInput type="password" name="password" label={t.profile.newPassword} required />
+					<FormInput type="password" name="confirmPassword" label={t.profile.confirmPassword} required />
 
 					<Button
 						disabled={form.formState.isSubmitting}
 						className="text-base mt-6 sm:mt-10 w-full"
 						type="submit">
-						Зберегти
+						{t.profile.saveChanges}
 					</Button>
 
 					<Button
@@ -83,7 +86,7 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 						disabled={form.formState.isSubmitting}
 						className="text-base w-full"
 						type="button">
-						Вийти
+						{t.profile.signOut}
 					</Button>
 				</form>
 			</FormProvider>

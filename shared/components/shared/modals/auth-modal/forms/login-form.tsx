@@ -7,12 +7,15 @@ import { FormInput } from "../../../form";
 import { Button } from "@/shared/components/ui";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { useLocaleStore } from "@/shared/store";
 
 interface Props {
 	onClose?: VoidFunction;
 }
 
 export const LoginForm: React.FC<Props> = ({ onClose }) => {
+	const { t } = useLocaleStore();
+
 	const form = useForm<TFormLoginValues>({
 		resolver: zodResolver(formLoginSchema),
 		defaultValues: {
@@ -32,14 +35,14 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
 				throw Error();
 			}
 
-			toast.success("Ви успішно увійшли в акаунт", {
+			toast.success(t.auth.loginSuccess, {
 				icon: "✅",
 			});
 
 			onClose?.();
 		} catch (error) {
 			console.error("Error [LOGIN]", error);
-			toast.error("Не вдалося увійти в акаунт", {
+			toast.error(t.auth.loginError, {
 				icon: "❌",
 			});
 		}
@@ -50,17 +53,17 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
 			<form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="flex justify-between items-center">
 					<div className="mr-2">
-						<Title text="Вхід до акаунту" size="md" className="font-bold" />
-						<p className="text-gray-400">Введіть свою пошту, щоб увійти в свій акаунт</p>
+						<Title text={t.auth.title} size="md" className="font-bold" />
+						<p className="text-gray-400">{t.auth.description}</p>
 					</div>
 					<img src="/assets/images/phone-icon.png" alt="phone-icon" width={60} height={60} />
 				</div>
 
 				<FormInput name="email" label="E-Mail" required />
-				<FormInput name="password" label="Пароль" type="password" required />
+				<FormInput name="password" label={t.auth.passwordLabel} type="password" required />
 
 				<Button loading={form.formState.isSubmitting} className="h-12 text-base" type="submit">
-					Увійти
+					{t.auth.loginButton}
 				</Button>
 			</form>
 		</FormProvider>

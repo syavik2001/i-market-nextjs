@@ -8,16 +8,19 @@ import { AdressInput } from "../address-input";
 import { Controller, useFormContext } from "react-hook-form";
 import { ErrorText } from "../error-text";
 
+import { useLocaleStore } from "@/shared/store";
+
 interface Props {
 	className?: string;
 }
 
 export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
 	const { control } = useFormContext();
+	const { t } = useLocaleStore();
 
 	return (
 		<>
-			<WhiteBlock title="3. Адреса доставки" className={className}>
+			<WhiteBlock title={t.checkout.deliveryAddress} className={className}>
 				<div className="flex flex-col gap-5">
 					<Controller
 						control={control}
@@ -33,7 +36,7 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
 					<FormTextarea
 						name="comment"
 						className="text-base"
-						placeholder="Коментар до замовлення"
+						placeholder={t.checkout.comment}
 						rows={5}
 					/>
 				</div>

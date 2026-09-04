@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useAddressAutocomplete } from "@/shared/lib/useAddressAutocomplete";
+import { useLocaleStore } from "@/shared/store";
 
 interface Props {
 	onChange?: (value: string) => void;
@@ -9,6 +10,7 @@ interface Props {
 
 export const AdressInput: React.FC<Props> = ({ onChange }) => {
 	const { inputRef, value, setValue, ready } = useAddressAutocomplete();
+	const { t } = useLocaleStore();
 
 	// Проброс значения наружу
 	useEffect(() => {
@@ -21,7 +23,7 @@ export const AdressInput: React.FC<Props> = ({ onChange }) => {
 			disabled={!ready}
 			value={value}
 			onChange={(e) => setValue(e.target.value)}
-			placeholder="Введіть адресу"
+			placeholder={t.checkout.address}
 			className="w-full px-4 py-3 text-base border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
 		/>
 	);

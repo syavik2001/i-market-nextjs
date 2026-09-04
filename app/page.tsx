@@ -6,17 +6,19 @@ import {
 	Stories,
 	Header,
 	TopBar,
+	HomeTitle,
 } from "@/shared/components/shared";
+
 import { Suspense } from "react";
 import { GetSearchParams, findPizzas } from "@/shared/lib/find-pizzas";
 import { FiltersProvider } from "@/shared/hooks/use-filters-context";
 
 // Клиентский компонент для показа toast
-import dynamic from "next/dynamic";
-const HomeClientToast = dynamic(() => import("./toast-client"), { ssr: false });
+import nextDynamic from "next/dynamic";
+const HomeClientToast = nextDynamic(() => import("./toast-client"), { ssr: false });
 
-// Добавляем кэширование
-export const revalidate = 300; // Кэшируем на 5 минут
+// Режим динамического рендеринга для правильного SSR перевода по куки
+export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }: { searchParams: GetSearchParams }) {
 	const categories = await findPizzas(searchParams);
@@ -29,7 +31,7 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
 				<TopBar categories={categories.filter((category) => category.products.length > 0)} />
 
 				<Container className="mt-10">
-					<Title text="Всі піци" size="lg" className="font-extrabold" />
+					<HomeTitle className="font-extrabold" />
 				</Container>
 
 				<Stories />
@@ -52,6 +54,7 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
 											<ProductsGroupList
 												key={category.id}
 												title={category.name}
+												nameEn={category.nameEn}
 												categoryId={category.id}
 												items={category.products}
 											/>
