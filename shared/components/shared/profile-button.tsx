@@ -4,6 +4,8 @@ import { Button } from "../ui/button";
 import { CircleUser, User } from "lucide-react";
 import Link from "next/link";
 
+import { useLocaleStore } from "@/shared/store";
+
 interface Props {
 	onClickSignIn?: () => void;
 	className?: string;
@@ -11,19 +13,20 @@ interface Props {
 
 export const ProfileButton: React.FC<Props> = ({ className, onClickSignIn }) => {
 	const { data: session } = useSession();
+	const { t } = useLocaleStore();
 
 	return (
 		<div className={className}>
 			{!session ? (
 				<Button onClick={onClickSignIn} variant="outline" className="flex items-center gap-1">
 					<User size={16} />
-					Увійти
+					{t.header.signIn}
 				</Button>
 			) : (
 				<Link href="/profile">
 					<Button variant="secondary" className="flex items-center gap-2">
 						<CircleUser size={18} />
-						Профіль
+						{t.header.profile}
 					</Button>
 				</Link>
 			)}

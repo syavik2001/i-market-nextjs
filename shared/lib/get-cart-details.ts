@@ -5,12 +5,13 @@ export type CartStateItem = {
 	id: number;
 	quantity: number;
 	name: string;
+	nameEn?: string | null;
 	imageUrl: string;
 	price: number;
 	disabled?: boolean;
 	pizzaSize?: number | null;
 	pizzaType?: number | null;
-	ingredients: Array<{ name: string; price: number }>;
+	ingredients: Array<{ name: string; nameEn?: string | null; price: number }>;
 };
 
 interface ReturnProps {
@@ -23,6 +24,7 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
 		id: item.id,
 		quantity: item.quantity,
 		name: item.productItem.product.name,
+		nameEn: item.productItem.product.nameEn,
 		imageUrl: item.productItem.product.imageUrl,
 		price: calcCartItemTotalPrice(item),
 		pizzaSize: item.productItem.size,
@@ -30,6 +32,7 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
 		disabled: false,
 		ingredients: item.ingredients.map((ingredient) => ({
 			name: ingredient.name,
+			nameEn: (ingredient as any).nameEn,
 			price: ingredient.price,
 		})),
 	})) as CartStateItem[];

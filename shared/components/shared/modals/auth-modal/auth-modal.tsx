@@ -7,6 +7,8 @@ import React from "react";
 import { LoginForm } from "./forms/login-form";
 import { RegisterForm } from "./forms/register-form";
 
+import { useLocaleStore } from "@/shared/store";
+
 interface Props {
 	open: boolean;
 	onClose: () => void;
@@ -14,6 +16,7 @@ interface Props {
 
 export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
 	const [type, setType] = React.useState<"login" | "register">("login");
+	const { t } = useLocaleStore();
 
 	const onSwitchType = () => {
 		setType(type === "login" ? "register" : "login");
@@ -67,7 +70,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
 				</div>
 
 				<Button variant="outline" onClick={onSwitchType} type="button" className="h-12 w-full mt-2">
-					{type !== "login" ? "Увійти" : "Реєстрація"}
+					{type !== "login" ? t.auth.switchToLogin : t.auth.switchToRegister}
 				</Button>
 			</DialogContent>
 		</Dialog>

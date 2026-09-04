@@ -8,6 +8,7 @@ import { registerUser } from "@/app/actions";
 import { TFormRegisterValues, formRegisterSchema } from "./schemas";
 import { FormInput } from "../../../form";
 import { Button } from "@/shared/components/ui";
+import { useLocaleStore } from "@/shared/store";
 
 interface Props {
 	onClose?: VoidFunction;
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
+	const { t } = useLocaleStore();
+
 	const form = useForm<TFormRegisterValues>({
 		resolver: zodResolver(formRegisterSchema),
 		defaultValues: {
@@ -33,13 +36,13 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
 				password: data.password,
 			});
 
-			toast.success("Реєстрація успішна 📝. Підтвердіть свою пошту", {
+			toast.success(t.auth.registerSuccess, {
 				icon: "✅",
 			});
 
 			onClose?.();
 		} catch (error) {
-			return toast.error("Помилка реєстрації", {
+			return toast.error(t.auth.registerError, {
 				icon: "❌",
 			});
 		}
@@ -49,12 +52,12 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
 		<FormProvider {...form}>
 			<form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
 				<FormInput name="email" label="E-Mail" required />
-				<FormInput name="fullName" label="Повное ім'я" required />
-				<FormInput name="password" label="Пароль" type="password" required />
-				<FormInput name="confirmPassword" label="Підтвердіть пароль" type="password" required />
+				<FormInput name="fullName" label={t.auth.fullNameLabel} required />
+				<FormInput name="password" label={t.auth.passwordLabel} type="password" required />
+				<FormInput name="confirmPassword" label={t.auth.confirmPasswordLabel} type="password" required />
 
 				<Button loading={form.formState.isSubmitting} className="h-12 text-base" type="submit">
-					Зареєструватися
+					{t.auth.registerButton}
 				</Button>
 			</form>
 		</FormProvider>

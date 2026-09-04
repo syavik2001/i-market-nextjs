@@ -9,10 +9,14 @@ import { Ingredient } from "@prisma/client";
 import { cn } from "@/shared/lib/utils";
 import { Title } from "./title";
 
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
+
 interface Props {
 	product: {
 		id: number;
 		name: string;
+		nameEn?: string | null;
 		imageUrl: string;
 		ingredients: Ingredient[];
 		items: { id: number; price: number }[];
@@ -26,8 +30,11 @@ interface Props {
  * Форма выбора ПРОДУКТА (не пиццы)
  */
 export const ChooseProductForm: React.FC<Props> = ({ product, onClose, className, onSubmit }) => {
+	const { locale, t } = useLocaleStore();
 	const [quantity, setQuantity] = React.useState(1);
 	const [selectedIngredients, setSelectedIngredients] = React.useState<number[]>([]);
+
+	const displayName = getLocalizedName(product.name, product.nameEn, locale);
 
 	const totalPrice =
 		(product.items[0].price +
@@ -59,7 +66,7 @@ export const ChooseProductForm: React.FC<Props> = ({ product, onClose, className
 			<div className="flex items-center justify-center relative w-full p-2 sm:p-3 1100:p-0 1100:h-auto 1100:flex-1">
 				<img
 					src={product.imageUrl}
-					alt={product.name}
+					alt={displayName}
 					className="relative 1100:left-2 1100:top-2 transition-all z-10 duration-300 w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] 1100:w-[350px] 1100:h-[350px] object-contain"
 				/>
 			</div>
@@ -67,25 +74,27 @@ export const ChooseProductForm: React.FC<Props> = ({ product, onClose, className
 			<div className="w-full 1100:w-[490px] bg-[#f7f6f5] p-4 1100:p-7 h-[70%] 1100:h-auto flex flex-col">
 				<div className="">
 					<Title
-						text={product.name}
+						text={displayName}
 						size="md"
 						className="font-extrabold mb-1 text-lg 1100:text-xl"
 					/>
 					<p className="text-gray-400 text-sm 1100:text-base">
-						{product.ingredients.map((ingredient) => ingredient.name).join(", ")}
+						{product.ingredients
+							.map((ingredient) => getLocalizedName(ingredient.name, ingredient.nameEn, locale))
+							.join(", ")}
 					</p>
 				</div>
 				{product.ingredients.length > 0 && (
 					<div className="flex-1 min-h-0">
 						<div className="bg-gray-50 p-3 1100:p-5 rounded-md h-full overflow-auto scrollbar mt-4 1100:mt-5">
 							<h4 className="font-bold mb-2 1100:mb-3 text-sm 1100:text-base">
-								Додаткові інгредієнти
+								{t.product.ingredientsTitle}
 							</h4>
 							<div className="flex gap-2 sm:gap-3 flex-wrap 1100:grid 1100:grid-cols-3 1100:gap-3">
 								{product.ingredients.map((ingredient) => (
 									<IngredientItem
 										key={ingredient.id}
-										name={ingredient.name}
+										name={getLocalizedName(ingredient.name, ingredient.nameEn, locale)}
 										price={ingredient.price}
 										imageUrl={ingredient.imageUrl}
 										active={selectedIngredients.includes(ingredient.id)}
@@ -104,14 +113,16 @@ export const ChooseProductForm: React.FC<Props> = ({ product, onClose, className
 				<div className="mt-auto pt-4 1100:pt-6">
 					{/* Количество */}
 					<div className="mb-4 1100:mb-6">
-						<h4 className="font-bold mb-2 1100:mb-3 text-sm 1100:text-base">Кількість</h4>
+						<h4 className="font-bold mb-2 1100:mb-3 text-sm 1100:text-base">
+							{locale === "en" ? "Quantity" : "Кількість"}
+						</h4>
 						<CountButton value={quantity} onClick={handleQuantityChange} />
 					</div>
 					{/* Кнопка добавления */}
 					<Button
 						onClick={handleAddToCart}
 						className="h-[50px] 1100:h-[55px] px-6 1100:px-10 text-base rounded-[18px] w-full">
-						Додати до кошика за {totalPrice} грн
+						{t.product.addToCart} {totalPrice} {t.common.currency}
 					</Button>
 				</div>
 			</div>

@@ -1,12 +1,16 @@
 import { z } from "zod";
+import { dictionaries } from "./locales";
 
-export const checkoutFormSchema = z.object({
-	firstName: z.string().min(2, { message: "Имя должно содержать не менее 2-х символов" }),
-	lastName: z.string().min(2, { message: "Фамилия должна содержать не менее 2-х символов" }),
-	email: z.string().email({ message: "Введите корректную почту" }),
-	phone: z.string().min(10, { message: "Введите корректный номер телефона" }),
-	address: z.string().min(5, { message: "Введите корректный адрес" }),
-	comment: z.string().optional(),
-});
+export const getCheckoutFormSchema = (t: typeof dictionaries.uk) =>
+	z.object({
+		firstName: z.string().min(2, { message: t.checkout.validation?.firstNameMin || "Ім'я має містити не менше 2-х символів" }),
+		lastName: z.string().min(2, { message: t.checkout.validation?.lastNameMin || "Прізвище має містити не менше 2-х символів" }),
+		email: z.string().email({ message: t.checkout.validation?.emailInvalid || "Введіть коректну пошту" }),
+		phone: z.string().min(10, { message: t.checkout.validation?.phoneInvalid || "Введіть коректний номер телефону" }),
+		address: z.string().min(5, { message: t.checkout.validation?.addressInvalid || "Введіть коректну адресу" }),
+		comment: z.string().optional(),
+	});
+
+export const checkoutFormSchema = getCheckoutFormSchema(dictionaries.uk);
 
 export type CheckoutFormValues = z.infer<typeof checkoutFormSchema>;

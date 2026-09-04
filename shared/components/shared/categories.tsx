@@ -1,9 +1,11 @@
 "use client";
 
 import { cn } from "@/shared/lib/utils";
-import { useCategoryStore } from "@/shared/store/category";
+import { useCategoryStore, useLocaleStore } from "@/shared/store";
 import { Category } from "@prisma/client";
 import React from "react";
+
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
 
 interface Props {
 	items: Category[];
@@ -13,13 +15,14 @@ interface Props {
 export const Categories: React.FC<Props> = ({ items, className }) => {
 	const categoryActiveId = useCategoryStore((state) => state.activeId);
 	const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
+	const { locale } = useLocaleStore();
 
 	// Устанавливаем активную категорию при загрузке страницы на основе hash
 	React.useEffect(() => {
 		if (typeof window !== "undefined") {
 			const hash = window.location.hash.slice(1); // Убираем #
 			if (hash) {
-				const category = items.find((item) => item.name === hash);
+				const category = items.find((item) => item.name === hash || item.nameEn === hash);
 				if (category) {
 					setActiveCategoryId(category.id);
 				}
@@ -55,19 +58,22 @@ export const Categories: React.FC<Props> = ({ items, className }) => {
 				"inline-flex gap-1 bg-gray-50 p-1 rounded-2xl overflow-x-auto scrollbar-hide max-w-full pt-2 pb-2 min-h-[56px]",
 				className,
 			)}>
-			{items.map(({ name, id }, index) => (
-				<a
-					className={cn(
-						"flex items-center font-bold h-11 rounded-2xl px-5 cursor-pointer transition-all duration-200",
-						categoryActiveId === id && "bg-white shadow-md shadow-gray-200 text-primary",
-						categoryActiveId !== id && "hover:bg-gray-100",
-					)}
-					href={`#${name}`}
-					onClick={(e) => handleCategoryClick(e, id, name)}
-					key={index}>
-					{name}
-				</a>
-			))}
+			{items.map((item, index) => {
+				const displayName = getLocalizedName(item.name, item.nameEn, locale);
+				return (
+					<a
+						className={cn(
+							"flex items-center font-bold h-11 rounded-2xl px-5 cursor-pointer transition-all duration-200",
+							categoryActiveId === item.id && "bg-white shadow-md shadow-gray-200 text-primary",
+							categoryActiveId !== item.id && "hover:bg-gray-100",
+						)}
+						href={`#${item.name}`}
+						onClick={(e) => handleCategoryClick(e, item.id, item.name)}
+						key={index}>
+						{displayName}
+					</a>
+				);
+			})}
 		</div>
 	);
 };

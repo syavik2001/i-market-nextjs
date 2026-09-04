@@ -13,7 +13,7 @@ import {
 	CheckoutPersonalForm,
 	Header,
 } from "@/shared/components/shared";
-import { CheckoutFormValues, checkoutFormSchema } from "@/shared/constants";
+import { CheckoutFormValues, checkoutFormSchema, getCheckoutFormSchema } from "@/shared/constants";
 import { useCart } from "@/shared/hooks";
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
@@ -21,13 +21,18 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import { Api } from "@/shared/services/api-client";
 
+import { useLocaleStore } from "@/shared/store";
+
 export default function CheckoutPage() {
 	const [submitting, setSubmitting] = React.useState(false);
 	const { totalAmount, updateItemQuantity, items, removeCartItem, loading } = useCart();
 	const { data: session } = useSession();
+	const { t } = useLocaleStore();
+
+	const schema = React.useMemo(() => getCheckoutFormSchema(t), [t]);
 
 	const form = useForm<CheckoutFormValues>({
-		resolver: zodResolver(checkoutFormSchema),
+		resolver: zodResolver(schema),
 		defaultValues: {
 			email: "",
 			firstName: "",
@@ -59,8 +64,8 @@ export default function CheckoutPage() {
 
 			const url = await createOrder(data);
 
-			toast.success("Замовлення успішно оформлено! 📝 Перехід на оплату... ", {
-				icon: "✅",
+			toast.success(t.cart.orderSuccess, {
+				icon: "📝",
 			});
 
 			if (url) {
@@ -69,7 +74,7 @@ export default function CheckoutPage() {
 		} catch (err) {
 			console.log(err);
 			setSubmitting(false);
-			toast.error("Не вдалося створити замовлення", {
+			toast.error(t.cart.orderFailed, {
 				icon: "❌",
 			});
 		}
@@ -86,7 +91,7 @@ export default function CheckoutPage() {
 
 			<Container className="mt-4 sm:mt-6 md:mt-10">
 				<Title
-					text="Оформлення замовлення"
+					text={t.cart.checkoutTitle}
 					className="font-extrabold mb-4 sm:mb-8 text-2xl sm:text-[32px] md:text-[36px]"
 				/>
 

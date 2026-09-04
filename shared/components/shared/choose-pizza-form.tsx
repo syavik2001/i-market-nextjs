@@ -11,9 +11,11 @@ import { useCart } from "@/shared/hooks/use-cart";
 import { cn } from "@/shared/lib/utils";
 import { Title } from "./title";
 import { GroupVariants } from "./group-variants";
-import { PizzaSize, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
+import { getPizzaTypes, PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { getPizzaDetails } from "@/shared/lib/get-pizza-details";
 import { PizzaImage } from "./pizza-image";
+import { useLocaleStore } from "@/shared/store";
+import { getLocalizedName } from "@/shared/lib/get-localized-name";
 
 interface Props {
 	imageUrl: string;
@@ -37,6 +39,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	loading,
 	className,
 }) => {
+	const { locale, t } = useLocaleStore();
 	const {
 		size,
 		type,
@@ -54,6 +57,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 		items,
 		ingredients,
 		selectedIngredients,
+		locale,
 	);
 
 	const [quantity, setQuantity] = React.useState(1);
@@ -73,6 +77,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	};
 
 	const finalPrice = totalPrice * quantity;
+	const localizedPizzaTypes = getPizzaTypes(locale);
 
 	return (
 		<div className={cn(className, "flex flex-col 1100:flex-row flex-1")}>
@@ -84,7 +89,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
 			<div className="w-full 1100:w-[490px] bg-[#f7f6f5] p-2 1100:p-7 h-[70%] 1100:h-auto flex flex-col">
 				<div className="">
-					<Title text={name} size="md" className="font-extrabold mb-1 text-lg 1100:text-xl" />
+					<Title text={getLocalizedName(name, undefined, locale)} size="md" className="font-extrabold mb-1 text-lg 1100:text-xl" />
 					<p className="text-gray-400 text-sm 1100:text-base">{textDetaills}</p>
 					<div className="flex flex-col gap-3 1100:gap-4 mt-2 1100:mt-5">
 						<GroupVariants
@@ -93,7 +98,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 							onClick={(value: string) => setSize(Number(value) as PizzaSize)}
 						/>
 						<GroupVariants
-							items={pizzaTypes}
+							items={localizedPizzaTypes}
 							value={String(type)}
 							onClick={(value: string) => setType(Number(value) as PizzaType)}
 						/>
@@ -105,7 +110,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 							{ingredients.map((ingredient) => (
 								<IngredientItem
 									key={ingredient.id}
-									name={ingredient.name}
+									name={getLocalizedName(ingredient.name, ingredient.nameEn, locale)}
 									price={ingredient.price}
 									imageUrl={ingredient.imageUrl}
 									onClick={() => addIngredient(ingredient.id)}
@@ -119,14 +124,16 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 				</div>
 				<div className="mt-auto pt-2 1100:pt-6">
 					<div className="mb-2 1100:mb-6">
-						<h4 className="font-bold mb-1 1100:mb-3 text-sm 1100:text-base">Кількість</h4>
+						<h4 className="font-bold mb-1 1100:mb-3 text-sm 1100:text-base">
+							{locale === "en" ? "Quantity" : "Кількість"}
+						</h4>
 						<CountButton value={quantity} onClick={handleQuantityChange} />
 					</div>
 					<Button
 						loading={loading}
 						onClick={handleClickAdd}
 						className="h-[50px] 1100:h-[55px] px-6 1100:px-10 text-base rounded-[18px] w-full">
-						Додати до кошика за {finalPrice} грн
+						{t.product.addToCart} {finalPrice} {t.common.currency}
 					</Button>
 				</div>
 			</div>

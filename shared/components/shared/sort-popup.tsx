@@ -5,6 +5,8 @@ import { ArrowUpDown } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/components/ui/popover";
 import { Filters } from "@/shared/hooks/use-filters";
 
+import { useLocaleStore } from "@/shared/store";
+
 interface Props {
 	className?: string;
 	filters: Filters & {
@@ -14,13 +16,14 @@ interface Props {
 }
 
 export const SortPopup: React.FC<Props> = ({ className, filters, isSheet }) => {
+	const { locale, t } = useLocaleStore();
 	const [open, setOpen] = React.useState(false);
 
 	const sortOptions = [
-		{ value: "alphabet-asc", label: "За алфавітом (А-Я)" },
-		{ value: "alphabet-desc", label: "За алфавітом (Я-А)" },
-		{ value: "price-asc", label: "Спочатку дешеві" },
-		{ value: "price-desc", label: "Спочатку дорогі" },
+		{ value: "alphabet-asc", label: locale === "en" ? "Alphabetical (A-Z)" : "За алфавітом (А-Я)" },
+		{ value: "alphabet-desc", label: locale === "en" ? "Alphabetical (Z-A)" : "За алфавітом (Я-А)" },
+		{ value: "price-asc", label: locale === "en" ? "Price: Low to High" : "Спочатку дешеві" },
+		{ value: "price-desc", label: locale === "en" ? "Price: High to Low" : "Спочатку дорогі" },
 	];
 
 	const currentSort =
@@ -58,7 +61,7 @@ export const SortPopup: React.FC<Props> = ({ className, filters, isSheet }) => {
 						className,
 					)}>
 					<ArrowUpDown className="w-4 h-4" />
-					<b>Сортування</b>
+					<b>{t.sort.title}:</b>
 					<b className="text-primary">{currentSort.label}</b>
 				</div>
 			</PopoverTrigger>

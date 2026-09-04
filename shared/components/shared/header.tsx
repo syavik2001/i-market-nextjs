@@ -9,6 +9,8 @@ import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
 import { ProfileButton } from "./profile-button";
 import { AuthModal } from "./modals";
+import { LanguagePicker } from "./language-picker";
+import { useLocaleStore } from "@/shared/store";
 
 interface Props {
 	hasSearch?: boolean;
@@ -18,6 +20,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className }) => {
 	const [openAuthModal, setOpenAuthModal] = React.useState(false);
+	const { locale, t } = useLocaleStore();
 
 	return (
 		<>
@@ -33,7 +36,9 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 										<h1 className="text-xl md:text-2xl uppercase font-black whitespace-nowrap">
 											NEXT PIZZA
 										</h1>
-										<p className="text-xs md:text-sm text-gray-400 leading-3">найсмачнюча піца</p>
+										<p className="text-xs md:text-sm text-gray-400 leading-3">
+											{locale === "en" ? "delicious pizza" : "найсмачнюча піца"}
+										</p>
 									</div>
 								</div>
 							</Link>
@@ -43,6 +48,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 								</div>
 							)}
 							<div className="flex flex-row items-center gap-2 md:gap-3 ml-auto">
+								<LanguagePicker />
 								<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
 								<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 								{hasCart && <CartButton />}
@@ -56,17 +62,21 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 										<Image src="/logo.png" alt="Logo" width={35} height={35} />
 										<div className="flex flex-col items-start">
 											<h1 className="text-xl uppercase font-black whitespace-nowrap">NEXT PIZZA</h1>
-											<p className="text-xs text-gray-400 leading-3">найсмачнюча піца</p>
+											<p className="text-xs text-gray-400 leading-3">
+												{locale === "en" ? "delicious pizza" : "найсмачнюча піца"}
+											</p>
 										</div>
 									</div>
 								</Link>
 								<div className="flex flex-row items-center gap-2 max-[499px]:hidden">
+									<LanguagePicker />
 									<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
 									<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 									{hasCart && <CartButton />}
 								</div>
 							</div>
 							<div className="hidden max-[499px]:flex flex-row items-center justify-end gap-2 w-full">
+								<LanguagePicker />
 								<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
 								<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 								{hasCart && <CartButton />}

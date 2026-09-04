@@ -5,6 +5,8 @@ import { FilterChecboxProps, FilterCheckbox } from "./filter-checkbox";
 import { Input } from "../ui/input";
 import { Skeleton } from "../ui";
 
+import { useLocaleStore } from "@/shared/store";
+
 type Item = FilterChecboxProps;
 
 interface Props {
@@ -26,13 +28,14 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 	items,
 	defaultItems,
 	limit = 5,
-	searchInputPlaceholder = "Пошук...",
+	searchInputPlaceholder,
 	className,
 	loading,
 	onClickCheckbox,
 	selected,
 	name,
 }) => {
+	const { t } = useLocaleStore();
 	const [showAll, setShowAll] = React.useState(false);
 	const [searchValue, setSearchValue] = React.useState("");
 
@@ -66,7 +69,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 				<div className="mb-5">
 					<Input
 						onChange={onChangeSearchInput}
-						placeholder={searchInputPlaceholder}
+						placeholder={searchInputPlaceholder || `${t.header.searchPlaceholder}`}
 						className="bg-gray-50 border-none"
 					/>
 				</div>
@@ -89,7 +92,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 			{items.length > limit && (
 				<div className={showAll ? "border-t border-t-neutral-100 mt-4" : ""}>
 					<button onClick={() => setShowAll(!showAll)} className="text-primary mt-3">
-						{showAll ? "Сховати" : "+ Показати всі"}
+						{showAll ? t.filters.hide : t.filters.showAll}
 					</button>
 				</div>
 			)}

@@ -31,6 +31,7 @@ model User {
 model Category {
     id       Int       @id @default(autoincrement())
     name     String    @unique
+    nameEn   String?
     products Product[]
 
     createdAt DateTime @default(now())
@@ -40,9 +41,11 @@ model Category {
 model Product {
     id Int @id @default(autoincrement())
 
-    name     String
-    imageUrl String
-    searchName String? // Нормализованное название для поиска
+    name         String
+    nameEn       String?
+    imageUrl     String
+    searchName   String? // Нормализованное название для поиска
+    searchNameEn String?
 
     ingredients Ingredient[]
     items       ProductItem[]
@@ -56,6 +59,8 @@ model Product {
     @@index([categoryId])
     @@index([name])
     @@index([searchName])
+    @@index([nameEn])
+    @@index([searchNameEn])
 }
 
 model ProductItem {
@@ -80,6 +85,7 @@ model Ingredient {
     id Int @id @default(autoincrement())
 
     name     String
+    nameEn   String?
     price    Int
     imageUrl String
 
